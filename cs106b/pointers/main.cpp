@@ -44,11 +44,17 @@ int main() {
    cout << "Las direcciones de memoria finalmente: " << endl;
    cout << "q: " << q << endl; 
    cout << "p: " << p << endl;   
-   cout << "Se perdio la memoria de q (orphan)" << endl;
+   cout << "Ya no tenemos forma de accesar a la direccion de memoria de q (orphan)" << endl;
    
-   //delete p;
-   //delete q;
-   //q = NULL;
+   // Dejamos la direccion de memoria de p, como libre (free)
+   delete p;
+   
+   // Esto seria un error, porque q, era la misma direccion de memoria que p.
+   // Ya la liberamos anteriormente y aqui queremos librerarla (free) otra vez
+   // double free or corruption 
+   delete q;
+   // Lo que si es valido, es hacer q como NULL
+   q = NULL;
 
    return 0;
 }
